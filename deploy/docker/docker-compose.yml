@@ -1,5 +1,17 @@
 version: "3"
 services:
+  gateway_nginx:
+    image: saf_nginx_image:latest
+    build:
+      context: ../..
+      dockerfile: deploy/docker/nginx/Dockerfile
+    container_name: saf_nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - saf_net
+
   app_go:
     image: saf_golang_image:latest
     build:
@@ -17,9 +29,6 @@ services:
       POSTGRES_PASSWORD: mDev3lopDb17
       POSTGRES_HOST: db_postgres
       STORAGE_PATH: /var/local/storage
-      DEBUG: true
-    ports:
-      - "80:80"
     networks:
       - saf_net
 
