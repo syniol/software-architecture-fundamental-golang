@@ -5,11 +5,19 @@ import (
 	"path/filepath"
 )
 
-type Unix struct{}
+type unix struct {
+	path string
+}
 
-func (*Unix) SaveFile(name, path string, content []byte) error {
+func newStorageUnix(rootPath string) Partitioner {
+	return &unix{
+		path: rootPath,
+	}
+}
+
+func (u *unix) SaveFile(name string, content []byte) error {
 	err := os.WriteFile(
-		filepath.Join(path, name),
+		filepath.Join(u.path, name),
 		content,
 		644,
 	)
@@ -18,8 +26,4 @@ func (*Unix) SaveFile(name, path string, content []byte) error {
 	}
 
 	return nil
-}
-
-func NewStorageUnix() Partitioner {
-	return &Unix{}
 }

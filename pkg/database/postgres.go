@@ -10,17 +10,19 @@ import (
 	_ "github.com/lib/pq"
 )
 
-var once sync.Once
+var postgresInstanceOnce sync.Once
 
-var instance *Database
+var postgresInstance *Database
 
-func newPostgresClient(ctx context.Context) (*Database, error) {
-	if instance != nil {
-		return instance, nil
+const maximumConnections = 1
+
+func newPostgresDatabase(ctx context.Context) (*Database, error) {
+	if postgresInstance != nil {
+		return postgresInstance, nil
 	}
 
 	var dbError error
-	once.Do(func() {
+	postgresInstanceOnce.Do(func() {
 		// [Postgres SSL Support]: https://www.postgresql.org/docs/current/libpq-ssl.html
 		connStr := fmt.Sprintf(
 			"postgresql://%s:%s@%s/%s?sslmode=require",
@@ -40,9 +42,9 @@ func newPostgresClient(ctx context.Context) (*Database, error) {
 			dbError = err
 		}
 
-		cnn.SetMaxOpenConns(1)
+		cnn.SetMaxOpenConns(maximumConnections)
 
-		instance = &Database{
+		postgresInstance = &Database{
 			Ctx: ctx,
 			DB:  cnn,
 		}
@@ -51,5 +53,5 @@ func newPostgresClient(ctx context.Context) (*Database, error) {
 		return nil, dbError
 	}
 
-	return instance, nil
+	return postgresInstance, nil
 }

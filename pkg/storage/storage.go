@@ -1,9 +1,11 @@
 package storage
 
+import "os"
+
 type Partitioner interface {
-	SaveFile(name, path string, content []byte) error
+	SaveFile(name string, content []byte) error
 }
 
 func NewStorage() Partitioner {
-	return NewStorageUnix()
+	return newStorageUnix(os.Getenv("STORAGE_PATH"))
 }
