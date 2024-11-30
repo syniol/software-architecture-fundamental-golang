@@ -9,7 +9,8 @@ services:
     tty: true
     volumes:
       - ../..:/var/local/app
-      - app_storage
+      - app_storage:/var/local/storage
+    working_dir: /var/local/app
     ports:
       - "80:80"
     networks:
@@ -35,7 +36,7 @@ services:
     container_name: saf_alpine
     tty: true
     volumes:
-      - app_storage
+      - app_storage:/var/local/storage
     networks:
       - saf_net
 
