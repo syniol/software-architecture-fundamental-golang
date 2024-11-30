@@ -29,13 +29,7 @@ func newPostgresDatabase(ctx context.Context) (*Database, error) {
 			os.Getenv("POSTGRES_USER"),
 			os.Getenv("POSTGRES_PASSWORD"),
 			os.Getenv("POSTGRES_DB"),
-			func() string {
-				if len(os.Getenv("DEBUG")) > 0 {
-					return "127.0.0.1"
-				}
-
-				return "db"
-			}(),
+			os.Getenv("POSTGRES_HOST"),
 		)
 		cnn, err := sql.Open("postgres", connStr)
 		if err != nil {
