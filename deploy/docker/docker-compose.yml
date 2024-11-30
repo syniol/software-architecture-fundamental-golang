@@ -1,0 +1,47 @@
+version: "3"
+services:
+  app_go:
+    image: saf_golang_image:latest
+    build:
+      context: ../..
+      dockerfile: deploy/docker/go/Dockerfile
+    container_name: saf_go
+    tty: true
+    volumes:
+      - ../..:/var/local/app
+      - app_storage
+    ports:
+      - "80:80"
+    networks:
+      - saf_net
+
+  db_postgres:
+    image: saf_postgres_image:latest
+    build:
+      context: ../..
+      dockerfile: deploy/docker/postgres/Dockerfile
+    container_name: saf_postgres
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: mDev3lopDb17
+    networks:
+      - saf_net
+
+  storage_alpine:
+    image: saf_storage_image:latest
+    build:
+      context: ../..
+      dockerfile: deploy/docker/alpine/Dockerfile
+    container_name: saf_alpine
+    tty: true
+    volumes:
+      - app_storage
+    networks:
+      - saf_net
+
+volumes:
+  app_storage:
+
+networks:
+  saf_net:
+    driver: bridge
