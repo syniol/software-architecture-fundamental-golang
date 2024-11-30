@@ -11,6 +11,11 @@ services:
       - ../..:/var/local/app
       - app_storage:/var/local/storage
     working_dir: /var/local/app
+    environment:
+      POSTGRES_DB: saf
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: mDev3lopDb17
+      DEBUG: true
     ports:
       - "80:80"
     networks:
@@ -23,6 +28,7 @@ services:
       dockerfile: deploy/docker/postgres/Dockerfile
     container_name: saf_postgres
     environment:
+      POSTGRES_DB: saf
       POSTGRES_USER: root
       POSTGRES_PASSWORD: mDev3lopDb17
     networks:
