@@ -1,5 +1,5 @@
 package database
 
-type Repository[T any] interface {
+type RepositoryHandler[T any] interface {
 	SaveOne(entity Entity[T]) error
 }
