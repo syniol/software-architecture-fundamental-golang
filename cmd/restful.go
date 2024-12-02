@@ -4,11 +4,11 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/syniol/software-architecture-fundamental-golang/server/restful"
+	"github.com/syniol/software-architecture-fundamental-golang/api/restful"
 )
 
 func main() {
-	err := http.ListenAndServe(":8080", restful.NewServer())
+	err := http.ListenAndServe(":8080", restful.NewRESTfulHandler())
 	if err != nil {
 		log.Fatal(err)
 	}
