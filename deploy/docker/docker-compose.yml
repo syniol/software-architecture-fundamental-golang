@@ -29,7 +29,7 @@ services:
       POSTGRES_PASSWORD: mDev3lopDb17
       POSTGRES_HOST: db_postgres
       STORAGE_PATH: /var/local/storage
-    entrypoint: ["go", "run", "cmd/server.go"]
+    entrypoint: ["go", "run", "cmd/restful.go"]
     networks:
       - saf_net
 
