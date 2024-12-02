@@ -39,6 +39,8 @@ services:
       context: ../..
       dockerfile: deploy/docker/postgres/Dockerfile
     container_name: saf_postgres
+    volumes:
+      - db_backup:/var/lib/postgresql/data
     environment:
       POSTGRES_DB: saf
       POSTGRES_USER: root
@@ -46,20 +48,9 @@ services:
     networks:
       - saf_net
 
-  storage_alpine:
-    image: saf_storage_image:latest
-    build:
-      context: ../..
-      dockerfile: deploy/docker/alpine/Dockerfile
-    container_name: saf_alpine
-    tty: true
-    volumes:
-      - app_storage:/var/local/storage
-    networks:
-      - saf_net
-
 volumes:
   app_storage:
+  db_backup:
 
 networks:
   saf_net:
