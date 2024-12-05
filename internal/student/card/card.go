@@ -2,17 +2,12 @@ package card
 
 import (
 	"encoding/json"
-	"time"
-
-	"github.com/google/uuid"
 )
 
 type Card struct {
-	ID               string
-	StudentID        string
-	Name             string
-	Photo            []byte
-	CreatedTimestamp time.Time
+	StudentID string `json:"studentId"`
+	Name      string `json:"name"`
+	Photo     []byte `json:"photo"`
 }
 
 type DTO struct {
@@ -23,11 +18,9 @@ type DTO struct {
 
 func NewStudentCard(studentID, name string, photo []byte) Card {
 	return Card{
-		ID:               uuid.New().String(),
-		StudentID:        studentID,
-		Name:             name,
-		Photo:            photo,
-		CreatedTimestamp: time.Now(),
+		StudentID: studentID,
+		Name:      name,
+		Photo:     photo,
 	}
 }
 
