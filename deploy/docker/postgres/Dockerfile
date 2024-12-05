@@ -1,5 +1,7 @@
 FROM postgres:17-alpine
 
+COPY deploy/docker/postgres/migration/*.sql /docker-entrypoint-initdb.d/
+
 RUN apk add --update-cache openssl \
     && openssl req -x509 -newkey rsa:4096 -nodes -out /var/lib/postgresql/server.crt -keyout /var/lib/postgresql/server.key \
     -days 365 \
