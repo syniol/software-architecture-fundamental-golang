@@ -5,10 +5,12 @@ import (
 	"fmt"
 
 	"github.com/syniol/software-architecture-fundamental-golang/pkg/database"
+	"github.com/syniol/software-architecture-fundamental-golang/pkg/storage"
 )
 
 type StudentRepo struct {
-	dbClient *database.Database
+	dbClient      *database.Database
+	storageClient storage.Partitioner
 }
 
 func NewStudentCardRepository() database.RepositoryHandler[Card] {
@@ -17,6 +19,11 @@ func NewStudentCardRepository() database.RepositoryHandler[Card] {
 
 func (sr StudentRepo) CreateOne(card Card) error {
 	cardJSON, err := json.Marshal(card)
+	if err != nil {
+		return err
+	}
+
+	err = sr.storageClient.SaveFile(fmt.Sprintf("%s.jpg", card.StudentID), card.Photo)
 	if err != nil {
 		return err
 	}
@@ -32,6 +39,10 @@ func (sr StudentRepo) CreateOne(card Card) error {
 }
 
 func (sr StudentRepo) FindOneWithID(id int) database.Entity[Card] {
+	return database.Entity[Card]{}
+}
+
+func (sr StudentRepo) FindOneWithStudentID(studentID string) database.Entity[Card] {
 	return database.Entity[Card]{}
 }
 
