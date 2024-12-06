@@ -10,7 +10,7 @@ func NewRESTfulHandler() http.Handler {
 	server := http.NewServeMux()
 
 	server.HandleFunc(NewRESTfulHealthEndpoint())
-	server.HandleFunc(student.NewRESTfulStudentCardEndpoint())
+	server.HandleFunc(student.NewRESTfulCreateStudentCardEndpoint())
 
 	return server
 }
