@@ -37,7 +37,7 @@ func createStudentCardEndpointHandler(
 	var studentCardRequest card.Card
 	err = json.Unmarshal(reqBody, &studentCardRequest)
 	if err != nil {
-		wr.WriteHeader(http.StatusInternalServerError)
+		wr.WriteHeader(http.StatusBadRequest)
 		wr.Write([]byte(`{"error": "unexpected error occurred creating a card. Please try again or contact IT Support."}`))
 
 		log.Println(err.Error())
