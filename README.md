@@ -1,4 +1,7 @@
 # Software Architecture Fundamental in Golang <sup>(Go)</sup>
+IT's NOT FINISHED YET
+
+
 This repository is for demonstration of Layered Software Architecture which 
 is a fundamental concept of clean architecture in software engineering context. 
 
