@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	err := http.ListenAndServe(":8080", restful.NewRESTfulHandler())
+	err := http.ListenAndServe(":8080", restful.NewRESTfulServer())
 	if err != nil {
 		log.Fatal(err)
 	}

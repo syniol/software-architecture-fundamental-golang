@@ -6,7 +6,7 @@ import (
 	"github.com/syniol/software-architecture-fundamental-golang/api/restful/student"
 )
 
-func NewRESTfulHandler() http.Handler {
+func NewRESTfulServer() http.Handler {
 	server := http.NewServeMux()
 
 	server.HandleFunc(NewRESTfulHealthEndpoint())
