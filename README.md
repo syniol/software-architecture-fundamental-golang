@@ -49,13 +49,31 @@ software, and operating system.
 <img src="./docs/architecture-design-diagram.png" style="max-width: 100%">
 
 
-## Up and Running with Docker
+## Software Design
+Going through each layer with an example and address of relevant file.
+
+### Infrastructure Layer
+Discussing postgres and http, and docker volume
+
+### Service Layer
+discuss abstract layers
+
+
+### Business Layer
+patterns for creating reusable services 
+
+
+### Core Layer
+All business related and requiremnet logic is here
+
+
+## Deploy and Orchestrate with Docker
 There is a `make` script at the root of this repository. You can run and stop 
 container with `make up` and `make down`.
 
 
 ## RESTful Server
-When server is running successfully, you should be able to get http status 
+When server is running successfully, you should be able to get a http status 
 code `200` with following response from `/health` endpoint:
 
 ```sh
