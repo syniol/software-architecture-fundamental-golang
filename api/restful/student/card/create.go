@@ -1,4 +1,4 @@
-package student
+package card
 
 import (
 	"encoding/json"
@@ -15,13 +15,11 @@ func createStudentCardEndpointHandler(
 	wr http.ResponseWriter,
 	rq *http.Request,
 ) {
-	if rq.Method == http.MethodPost {
+	if rq.Method != http.MethodPost {
 		wr.WriteHeader(http.StatusNotFound)
 
 		return
 	}
-
-	wr.Header().Set("Content-Type", "application/json")
 
 	reqBody, err := io.ReadAll(rq.Body)
 	if err != nil {
@@ -40,6 +38,7 @@ func createStudentCardEndpointHandler(
 		wr.WriteHeader(http.StatusBadRequest)
 		wr.Write([]byte(`{"error": "unexpected error occurred creating a card. Please try again or contact IT Support."}`))
 
+		// Publishing error for internal logs
 		log.Println(err.Error())
 
 		return
@@ -49,13 +48,13 @@ func createStudentCardEndpointHandler(
 		card.NewStudentCard(
 			studentCardRequest.StudentID,
 			studentCardRequest.Name,
-			studentCardRequest.Photo,
 		),
 	)
 	if err != nil {
 		wr.WriteHeader(http.StatusInternalServerError)
 		wr.Write([]byte(`{"error": "unexpected error occurred creating a card. Please try again or contact IT Support."}`))
 
+		// Publishing error for internal logs
 		log.Println(err.Error())
 
 		return

@@ -1,44 +1,26 @@
 package card
 
 import (
-	"encoding/json"
+	"time"
+
+	"github.com/syniol/software-architecture-fundamental-golang/pkg/lib"
 )
 
 type Card struct {
 	StudentID string `json:"studentId"`
 	Name      string `json:"name"`
-	Photo     []byte `json:"photo"`
+	IssueDate string `json:"issueDate"`
 }
 
 type DTO struct {
-	StudentID string `json:"studentId"`
-	Name      string `json:"name"`
-	Photo     []byte `json:"photo"`
+	StudentID string `json:"student_id"`
+	Name      string `json:"full_name"`
 }
 
-func NewStudentCard(studentID, name string, photo []byte) Card {
+func NewStudentCard(studentID, name string) Card {
 	return Card{
 		StudentID: studentID,
 		Name:      name,
-		Photo:     photo,
+		IssueDate: lib.NewDateTime().Format(time.DateOnly),
 	}
-}
-
-func NewStudentCardWithCardDTO(dto *DTO) Card {
-	return NewStudentCard(
-		dto.StudentID,
-		dto.Name,
-		dto.Photo,
-	)
-}
-
-func NewStudentCardDTO(input []byte) (error, *DTO) {
-	var cardDTO DTO
-
-	err := json.Unmarshal(input, &cardDTO)
-	if err != nil {
-		return err, nil
-	}
-
-	return nil, &cardDTO
 }

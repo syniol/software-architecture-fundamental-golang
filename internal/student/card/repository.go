@@ -1,6 +1,7 @@
 package card
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 
@@ -9,21 +10,32 @@ import (
 )
 
 type StudentRepo struct {
+	database.RepositoryHandler[Card]
+
 	dbClient      *database.Database
 	storageClient storage.Partitioner
 }
 
-func NewStudentCardRepository() database.RepositoryHandler[Card] {
-	return StudentRepo{}
+func NewStudentCardRepository() (*StudentRepo, error) {
+	dbClient, _ := database.NewDatabase(context.Background())
+
+	return &StudentRepo{
+		dbClient:      dbClient,
+		storageClient: storage.NewStorage(),
+	}, nil
 }
 
-func (sr StudentRepo) CreateOne(card Card) error {
-	cardJSON, err := json.Marshal(card)
+func (sr *StudentRepo) UploadPhotoID(studentID string, content []byte) error {
+	err := sr.storageClient.SaveFile(fmt.Sprintf("%s.jpg", studentID), content)
 	if err != nil {
 		return err
 	}
 
-	err = sr.storageClient.SaveFile(fmt.Sprintf("%s.jpg", card.StudentID), card.Photo)
+	return nil
+}
+
+func (sr *StudentRepo) CreateOne(card Card) error {
+	cardJSON, err := json.Marshal(card)
 	if err != nil {
 		return err
 	}
@@ -38,18 +50,18 @@ func (sr StudentRepo) CreateOne(card Card) error {
 	return nil
 }
 
-func (sr StudentRepo) FindOneWithID(id int) database.Entity[Card] {
+func (sr *StudentRepo) FindOneWithID(id int) database.Entity[Card] {
 	return database.Entity[Card]{}
 }
 
-func (sr StudentRepo) FindOneWithStudentID(studentID string) database.Entity[Card] {
+func (sr *StudentRepo) FindOneWithStudentID(studentID string) database.Entity[Card] {
 	return database.Entity[Card]{}
 }
 
-func (sr StudentRepo) UpdateOne(entity database.Entity[Card]) error {
+func (sr *StudentRepo) UpdateOne(entity database.Entity[Card]) error {
 	return nil
 }
 
-func (sr StudentRepo) DeleteOne(entity database.Entity[Card]) error {
+func (sr *StudentRepo) DeleteOne(entity database.Entity[Card]) error {
 	return nil
 }

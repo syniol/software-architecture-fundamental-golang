@@ -1,6 +1,7 @@
 package storage
 
 import (
+	"log"
 	"os"
 	"path/filepath"
 )
@@ -16,6 +17,10 @@ func newStorageUnix(rootPath string) Partitioner {
 }
 
 func (u *unix) SaveFile(name string, content []byte) error {
+	log.Println("inside save file method")
+	log.Println("file path", u.path)
+	log.Println("file name", name)
+
 	err := os.WriteFile(
 		filepath.Join(u.path, name),
 		content,

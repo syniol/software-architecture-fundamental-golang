@@ -1,16 +1,16 @@
 package restful
 
 import (
+	"github.com/syniol/software-architecture-fundamental-golang/api/restful/student/card"
 	"net/http"
-
-	"github.com/syniol/software-architecture-fundamental-golang/api/restful/student"
 )
 
 func NewRESTfulServer() http.Handler {
 	server := http.NewServeMux()
 
 	server.HandleFunc(NewRESTfulHealthEndpoint())
-	server.HandleFunc(student.NewRESTfulCreateStudentCardEndpoint())
+	server.HandleFunc(card.NewRESTfulCreateStudentCardEndpoint())
+	server.HandleFunc(card.NewRESTfulStudentCardPhotoUploadEndpoint())
 
 	return server
 }

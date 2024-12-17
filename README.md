@@ -27,18 +27,18 @@ this year for admission process.
  ```json
 {
     "student_id": "",
-    "full_name": "",
-    "portrait_photo": ""
+    "full_name": ""
 }
 ```
  * Design a Data Structure and store the data in chose format in database
  * Design a correlation between student data in database and stored photo
- * Store photos with in `jpg` format which is an accepted format submitted by agent
+ * Store photos with in `jpeg` with format and `.jpg` extension which is an 
+accepted format submitted by agent
 
 
 ### Demo Environment
-You will e given access to one of University's VPS with following hardware, 
-software, and operating system.
+You will be given access to one of University's VPS with the following hardware, 
+software, and operating system spec.
  * Ubuntu Linux 20.04
  * 4 vCPU
  * 6 GB RAM
@@ -64,7 +64,7 @@ patterns for creating reusable services
 
 
 ### Core Layer
-All business related and requiremnet logic is here
+All business related and requirement logic is here
 
 
 ## Deploy and Orchestrate with Docker
@@ -73,6 +73,8 @@ container with `make up` and `make down`.
 
 
 ## RESTful Server
+
+### Health Endpoint
 When server is running successfully, you should be able to get a http status 
 code `200` with following response from `/health` endpoint:
 
@@ -85,6 +87,48 @@ curl --location 'http://127.0.0.1/health'
   "status": "healthy"
 }
 ```
+
+### Student Card Creation Endpoint
+
+
+### Create Student Card Record
+```sh
+curl --location --request POST 'http://127.0.0.1/v1/student/card' \
+--header 'Content-Type: application/json' \
+--data '{ "student_id":"JDOE1988232", "full_name":"John Doe" }
+```
+
+#### Upload Photo Identification
+```sh
+curl --location --request PUT 'http://127.0.0.1/v1/student/{student_id}/card/photo' \
+--header 'Content-Type: image/jpeg' \
+--data '@/Users/hadi/Documents/student-3234224.jpg'
+```
+
+
+```sh
+curl \ 
+-H 'Content-Type: application/json' \ 
+-d "data=@path/to/my-file.txt" \ 
+-d '{ "student_id":"JDOE1988232", "full_name":"John Doe" }' \ 
+-X POST \ 
+'http://127.0.0.1/v1/student/card'
+```
+
+`enctype="multipart/form-data"`
+```sh
+curl -X POST \ 
+-F 'data=@path/to/local/file' http://127.0.0.1/v1/student/card
+```
+
+
+
+
+### Todo(s)
+ * [ ] Correct Pattern use in Diagram Adapter is for database and etc
+ * [ ] Make all docker containers production ready
+ * [ ] Finalise submission and data structure with correlation to photo id
+ * [ ] Finalise documentation
 
 
 #### Credit

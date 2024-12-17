@@ -12,4 +12,6 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	log.Println("🚀 RESTful Service is running at localhost port 8080")
 }
