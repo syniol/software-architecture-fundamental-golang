@@ -34,11 +34,6 @@ services:
       POSTGRES_PASSWORD: mDev3lopDb17
       POSTGRES_HOST: db_postgres
       STORAGE_PATH: /var/local/storage
-    healthcheck:
-      test: curl --location http://app_go:8080/health || exit 1
-      interval: 10s
-      timeout: 5s
-      retries: 3
     networks:
       - saf_net
 
