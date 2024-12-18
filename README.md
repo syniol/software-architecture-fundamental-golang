@@ -127,13 +127,12 @@ curl -X POST \
 ```
 
 
-
-
 ### Todo(s)
  * [ ] Correct Pattern use in Diagram Adapter is for database and etc
  * [ ] Make all docker containers production ready
  * [ ] Finalise submission and data structure with correlation to photo id
  * [ ] Finalise documentation
+ * [ ] Investigate Volume Write permission issue for non-root users 
 
 
 #### Credit
