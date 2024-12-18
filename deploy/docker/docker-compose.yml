@@ -9,6 +9,11 @@ services:
     ports:
       - "80:80"
       - "443:443"
+    healthcheck:
+      test: curl --location http://gateway_nginx:80/health || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 3
     networks:
       - saf_net
 
@@ -29,6 +34,11 @@ services:
       POSTGRES_PASSWORD: mDev3lopDb17
       POSTGRES_HOST: db_postgres
       STORAGE_PATH: /var/local/storage
+    healthcheck:
+      test: curl --location http://app_go:8080/health || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 3
     entrypoint: ["go", "run", "cmd/restful.go"]
     networks:
       - saf_net
@@ -47,11 +57,11 @@ services:
       POSTGRES_DB: saf
       POSTGRES_USER: root
       POSTGRES_PASSWORD: mDev3lopDb17
-#    healthcheck:
-#      test: [ "CMD-SHELL", "pg_isready" ]
-#      interval: 1s
-#      timeout: 5s
-#      retries: 10
+    healthcheck:
+      test: ["CMD-SHELL", "sh -c 'pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}'"]
+      interval: 1s
+      timeout: 5s
+      retries: 10
     networks:
       - saf_net
 
