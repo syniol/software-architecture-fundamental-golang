@@ -31,7 +31,8 @@ func NewRESTfulEndpointAuthenticatedHandler(handler EndpointHandler, allowedMeth
 		token := rq.Header.Get("Authorization")
 		tokenSplit := strings.SplitAfter(token, "Bearer")
 		if len(tokenSplit) <= 1 {
-			wr.WriteHeader(http.StatusForbidden)
+			wr.WriteHeader(http.StatusUnauthorized)
+			wr.Write([]byte("Unauthorised Access is forbidden."))
 
 			return
 		}

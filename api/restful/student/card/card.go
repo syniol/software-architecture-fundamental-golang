@@ -10,20 +10,24 @@ import (
 )
 
 func NewRESTfulCreateStudentCardEndpoint() (path string, handler server.EndpointHandler) {
-	return "/v1/student/card", func(wr http.ResponseWriter, rq *http.Request) {
-		studentRepository, err := card.NewStudentCardRepository()
-		if err != nil {
-			wr.WriteHeader(http.StatusInternalServerError)
-			wr.Write([]byte(`{ "error": "error establishing connection to database" }`))
+	return "/v1/student/card", server.NewRESTfulEndpointAuthenticatedHandler(
+		func(wr http.ResponseWriter, rq *http.Request) {
+			studentRepository, err := card.NewStudentCardRepository()
+			if err != nil {
+				wr.WriteHeader(http.StatusInternalServerError)
+				wr.Write([]byte(`{ "error": "error establishing connection to database" }`))
 
-			return
-		}
-		createStudentCardEndpointHandler(studentRepository, wr, rq)
-	}
+				return
+			}
+
+			createStudentCardEndpointHandler(studentRepository, wr, rq)
+		},
+		http.MethodPost,
+	)
 }
 
 func NewRESTfulStudentCardPhotoUploadEndpoint() (path string, handler server.EndpointHandler) {
-	return "/v1/student/card/photo", server.NewRESTfulEndpointHandler(
+	return "/v1/student/card/photo", server.NewRESTfulEndpointAuthenticatedHandler(
 		func(wr http.ResponseWriter, rq *http.Request) {
 			var imgBuffer bytes.Buffer
 			if _, err := imgBuffer.ReadFrom(rq.Body); err != nil {
