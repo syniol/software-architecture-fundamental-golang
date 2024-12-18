@@ -1,5 +1,5 @@
 build:
-	docker-compose -f deploy/docker/docker-compose.yml build --no-cache
+	docker-compose -f deploy/docker/docker-compose.yml build
 
 up:
 	docker-compose -f deploy/docker/docker-compose.yml up -d
