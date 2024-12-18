@@ -1,4 +1,4 @@
-FROM postgres:17-alpine
+FROM postgres:14-alpine
 
 COPY deploy/docker/postgres/migration/*.sql /docker-entrypoint-initdb.d/
 

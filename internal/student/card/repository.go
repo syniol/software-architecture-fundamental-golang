@@ -17,7 +17,10 @@ type StudentRepo struct {
 }
 
 func NewStudentCardRepository() (*StudentRepo, error) {
-	dbClient, _ := database.NewDatabase(context.Background())
+	dbClient, err := database.NewDatabase(context.Background())
+	if err != nil {
+		return nil, err
+	}
 
 	return &StudentRepo{
 		dbClient:      dbClient,

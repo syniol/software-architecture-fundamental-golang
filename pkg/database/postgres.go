@@ -24,13 +24,15 @@ func newPostgresDatabase(ctx context.Context) (*Database, error) {
 	var dbError error
 	postgresInstanceOnce.Do(func() {
 		// [Postgres SSL Support]: https://www.postgresql.org/docs/current/libpq-ssl.html
+		// postgresql://user:password@127.0.0.1:5432/database_name?sslmode=require
 		connStr := fmt.Sprintf(
-			"postgresql://%s:%s@%s/%s?sslmode=require",
+			"postgresql://%s:%s@%s:5432/%s?sslmode=require",
 			os.Getenv("POSTGRES_USER"),
 			os.Getenv("POSTGRES_PASSWORD"),
-			os.Getenv("POSTGRES_DB"),
 			os.Getenv("POSTGRES_HOST"),
+			os.Getenv("POSTGRES_DB"),
 		)
+
 		cnn, err := sql.Open("postgres", connStr)
 		if err != nil {
 			dbError = err

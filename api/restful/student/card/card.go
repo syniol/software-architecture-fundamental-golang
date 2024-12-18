@@ -11,7 +11,13 @@ import (
 
 func NewRESTfulCreateStudentCardEndpoint() (path string, handler server.EndpointHandler) {
 	return "/v1/student/card", func(wr http.ResponseWriter, rq *http.Request) {
-		studentRepository, _ := card.NewStudentCardRepository()
+		studentRepository, err := card.NewStudentCardRepository()
+		if err != nil {
+			wr.WriteHeader(http.StatusInternalServerError)
+			wr.Write([]byte(`{ "error": "error establishing connection to database" }`))
+
+			return
+		}
 		createStudentCardEndpointHandler(studentRepository, wr, rq)
 	}
 }
