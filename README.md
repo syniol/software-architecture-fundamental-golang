@@ -91,11 +91,11 @@ curl --location 'http://127.0.0.1/health'
 ### Student Card Creation Endpoint(s)
 There are currently two endpoint to facilitate Student Card registration.
 
-### Create Student Card Record
+#### Create Student Card Record
 ```sh
 curl --location --request POST 'http://127.0.0.1/v1/student/card' \
 --header 'Content-Type: application/json' \
---header 'Authorization: Bearer asdasdsadasdas' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9=' \
 --data '{
     "full_name": "John Doe",
     "student_id": "276163278231"
@@ -106,7 +106,7 @@ curl --location --request POST 'http://127.0.0.1/v1/student/card' \
 ```sh
 curl --location --request PUT 'http://127.0.0.1/v1/student/card/photo' \
 --header 'Content-Type: image/jpeg' \
---header 'Authorization: Bearer asdasdsadasdas' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9=' \
 --data '@/Users/hadi/Downloads/bart.jpeg'
 ```
 
