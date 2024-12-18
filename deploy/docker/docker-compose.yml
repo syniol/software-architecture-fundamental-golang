@@ -51,8 +51,6 @@ services:
     container_name: saf_postgres
     volumes:
       - db_backup:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
     environment:
       POSTGRES_DB: saf
       POSTGRES_USER: root
