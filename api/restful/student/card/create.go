@@ -44,10 +44,21 @@ func createStudentCardEndpointHandler(
 		return
 	}
 
+	studentCard, err := card.NewStudentCardWithDTO(reqBody)
+	if err != nil {
+		wr.WriteHeader(http.StatusBadRequest)
+		wr.Write([]byte(`{"error": "unexpected error occurred creating a card. Please try again or contact IT Support."}`))
+
+		// Publishing error for internal logs
+		log.Println(err.Error())
+
+		return
+	}
+
 	err = studentRepository.CreateOne(
 		card.NewStudentCard(
-			studentCardRequest.StudentID,
-			studentCardRequest.Name,
+			studentCard.StudentID,
+			studentCard.Name,
 		),
 	)
 	if err != nil {

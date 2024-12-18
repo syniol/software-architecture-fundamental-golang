@@ -37,7 +37,7 @@ func (sr *StudentRepo) UploadPhotoID(studentID string, content []byte) error {
 	return nil
 }
 
-func (sr *StudentRepo) CreateOne(card Card) error {
+func (sr *StudentRepo) CreateOne(card *Card) error {
 	cardJSON, err := json.Marshal(card)
 	if err != nil {
 		return err
