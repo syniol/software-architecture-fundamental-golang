@@ -59,9 +59,9 @@ services:
       POSTGRES_PASSWORD: mDev3lopDb17
     healthcheck:
       test: ["CMD-SHELL", "sh -c 'pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}'"]
-      interval: 1s
+      interval: 10s
       timeout: 5s
-      retries: 10
+      retries: 3
     networks:
       - saf_net
 
