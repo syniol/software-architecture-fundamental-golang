@@ -15,7 +15,7 @@ func NewRESTfulCreateStudentCardEndpoint() (path string, handler pkg.EndpointHan
 			studentRepository, err := card.NewStudentCardRepository()
 			if err != nil {
 				wr.WriteHeader(http.StatusInternalServerError)
-				wr.Write([]byte(`{ "error": "error establishing connection to database" }`))
+				wr.Write([]byte(`{ "error": "error establishing a connection to database" }`))
 
 				return
 			}

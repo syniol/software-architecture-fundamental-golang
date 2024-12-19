@@ -15,12 +15,6 @@ func createStudentCardEndpointHandler(
 	wr http.ResponseWriter,
 	rq *http.Request,
 ) {
-	if rq.Method != http.MethodPost {
-		wr.WriteHeader(http.StatusNotFound)
-
-		return
-	}
-
 	reqBody, err := io.ReadAll(rq.Body)
 	if err != nil {
 		wr.WriteHeader(http.StatusInternalServerError)

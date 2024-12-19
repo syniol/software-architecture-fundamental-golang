@@ -9,15 +9,20 @@ import (
 	"github.com/syniol/software-architecture-fundamental-golang/pkg/storage"
 )
 
-type StudentRepository struct {
-	DatabaseRepositoryManager database.RepositoryManager[Card]
-	StorageRepositoryManager  storage.RepositoryManager
+// StudentRepositoryManager is an example of multiple inheritance in Go
+type StudentRepositoryManager interface {
+	database.RepositoryManager[Card]
+	storage.RepositoryManager
 
+	// Add any custom method here and create an implementation on func (sr *StudentRepository) YourCustomFunc(param any): any
+}
+
+type StudentRepository struct {
 	storageClient storage.Manager
 	dbClient      *database.Database
 }
 
-func NewStudentCardRepository() (*StudentRepository, error) {
+func NewStudentCardRepository() (StudentRepositoryManager, error) {
 	dbClient, err := database.NewDatabase(context.Background())
 	if err != nil {
 		return nil, err
