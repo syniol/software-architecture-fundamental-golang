@@ -11,7 +11,7 @@ import (
 )
 
 func createStudentCardEndpointHandler(
-	studentRepository database.RepositoryHandler[card.Card],
+	studentRepository database.RepositoryManager[card.Card],
 	wr http.ResponseWriter,
 	rq *http.Request,
 ) {

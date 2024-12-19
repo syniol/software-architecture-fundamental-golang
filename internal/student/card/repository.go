@@ -9,27 +9,28 @@ import (
 	"github.com/syniol/software-architecture-fundamental-golang/pkg/storage"
 )
 
-type StudentRepo struct {
-	database.RepositoryHandler[Card]
+type StudentRepository struct {
+	DatabaseRepositoryManager database.RepositoryManager[Card]
+	StorageRepositoryManager  storage.RepositoryManager
 
+	storageClient storage.Manager
 	dbClient      *database.Database
-	storageClient storage.Partitioner
 }
 
-func NewStudentCardRepository() (*StudentRepo, error) {
+func NewStudentCardRepository() (*StudentRepository, error) {
 	dbClient, err := database.NewDatabase(context.Background())
 	if err != nil {
 		return nil, err
 	}
 
-	return &StudentRepo{
+	return &StudentRepository{
 		dbClient:      dbClient,
 		storageClient: storage.NewStorage(),
 	}, nil
 }
 
-func (sr *StudentRepo) UploadPhotoID(studentID string, content []byte) error {
-	err := sr.storageClient.SaveFile(fmt.Sprintf("%s.jpg", studentID), content)
+func (sr *StudentRepository) SaveSingleFile(studentID, extension string, content []byte) error {
+	err := sr.storageClient.SaveFile(fmt.Sprintf("%s.%s", studentID, extension), content)
 	if err != nil {
 		return err
 	}
@@ -37,7 +38,7 @@ func (sr *StudentRepo) UploadPhotoID(studentID string, content []byte) error {
 	return nil
 }
 
-func (sr *StudentRepo) CreateOne(card *Card) error {
+func (sr *StudentRepository) CreateOne(card *Card) error {
 	cardJSON, err := json.Marshal(card)
 	if err != nil {
 		return err
@@ -50,21 +51,5 @@ func (sr *StudentRepo) CreateOne(card *Card) error {
 		return err
 	}
 
-	return nil
-}
-
-func (sr *StudentRepo) FindOneWithID(id int) database.Entity[Card] {
-	return database.Entity[Card]{}
-}
-
-func (sr *StudentRepo) FindOneWithStudentID(studentID string) database.Entity[Card] {
-	return database.Entity[Card]{}
-}
-
-func (sr *StudentRepo) UpdateOne(entity database.Entity[Card]) error {
-	return nil
-}
-
-func (sr *StudentRepo) DeleteOne(entity database.Entity[Card]) error {
 	return nil
 }

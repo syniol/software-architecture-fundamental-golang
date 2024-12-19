@@ -9,7 +9,7 @@ type unix struct {
 	path string
 }
 
-func newStorageUnix(rootPath string) Partitioner {
+func newStorageUnix(rootPath string) Manager {
 	return &unix{
 		path: rootPath,
 	}
