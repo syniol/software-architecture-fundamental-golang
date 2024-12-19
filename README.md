@@ -20,8 +20,8 @@ an Architecture Design, Software design, and its implementation as a final
 product. All submissions will be assessed and chosen to be used by University 
 this year for admission process.
 
-### Requirements
 
+### Requirements
  * Portrait photo for all issued students card should be stored in VPS
  * API request will be made through web application with following JSON format:
  ```json
@@ -46,7 +46,7 @@ software, and operating system spec.
 
 
 ## Architecture Design
-<img src="./docs/architecture-design-diagram.png" style="max-width: 100%">
+<img src="./docs/architecture-design-diagram.png" style="max-width: 100%" alt="">
 
 
 ## Software Design
@@ -76,7 +76,7 @@ container with `make up` and `make down`.
 
 ### Health Endpoint
 When server is running successfully, you should be able to get a http status 
-code `200` with following response from `/health` endpoint:
+code `200` with the following response from `/health` endpoint:
 
 ```sh
 curl --location 'http://127.0.0.1/health'
@@ -89,7 +89,7 @@ curl --location 'http://127.0.0.1/health'
 ```
 
 ### Student Card Creation Endpoint(s)
-There are currently two endpoint to facilitate Student Card registration.
+There are currently two endpoints to facilitate Student Card registration.
 
 #### Create Student Card Record
 ```sh
@@ -132,7 +132,9 @@ curl -X POST \
  * [ ] Make all docker containers production ready
  * [ ] Finalise submission and data structure with correlation to photo id
  * [ ] Finalise documentation
- * [ ] Investigate Volume Write permission issue for non-root users 
+ * [ ] Investigate Volume Write permission issue for non-root users
+ * [ ] Use docker secret for storing database credentials
+ * [ ] Change Server handler to use :id or :slug
 
 
 #### Credit

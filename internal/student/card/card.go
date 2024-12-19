@@ -2,9 +2,8 @@ package card
 
 import (
 	"encoding/json"
+	"github.com/syniol/software-architecture-fundamental-golang/pkg"
 	"time"
-
-	"github.com/syniol/software-architecture-fundamental-golang/pkg/lib"
 )
 
 type Card struct {
@@ -22,7 +21,7 @@ func NewStudentCard(studentID, name string) *Card {
 	return &Card{
 		StudentID: studentID,
 		Name:      name,
-		IssueDate: lib.NewDateTime().Format(time.DateOnly),
+		IssueDate: pkg.NewDateTime().Format(time.DateOnly),
 	}
 }
 
