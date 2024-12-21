@@ -32,6 +32,8 @@ func NewRESTfulStudentCardPhotoUploadEndpoint() (path string, handler pkg.Endpoi
 			var imgBuffer bytes.Buffer
 			if _, err := imgBuffer.ReadFrom(rq.Body); err != nil {
 				wr.WriteHeader(http.StatusBadRequest)
+				wr.Write([]byte(`{ "message": "There is an issue with submitted photograph, please contact the administrator" }`))
+
 				log.Println(err.Error())
 
 				return

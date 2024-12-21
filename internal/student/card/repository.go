@@ -14,7 +14,9 @@ type StudentRepositoryManager interface {
 	database.RepositoryManager[Card]
 	storage.RepositoryManager
 
-	// Add any custom method here and create an implementation on func (sr *StudentRepository) YourCustomFunc(param any): any
+	// Add any custom method here and create an implementation on:
+	// func (sr *StudentRepository) YourCustomFunc(param any): any
+	findStudentCardWithNameAndID(name, studentID string) (*Card, error)
 }
 
 type StudentRepository struct {
@@ -57,4 +59,10 @@ func (sr *StudentRepository) CreateOne(card *Card) error {
 	}
 
 	return nil
+}
+
+func (sr *StudentRepository) findStudentCardWithNameAndID(name, studentID string) (*Card, error) {
+	// example of additional custom repository methods specific to each domain
+
+	return nil, nil
 }
