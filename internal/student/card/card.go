@@ -2,8 +2,9 @@ package card
 
 import (
 	"encoding/json"
-	"github.com/syniol/software-architecture-fundamental-golang/pkg"
 	"time"
+
+	"github.com/syniol/software-architecture-fundamental-golang/pkg"
 )
 
 type Card struct {

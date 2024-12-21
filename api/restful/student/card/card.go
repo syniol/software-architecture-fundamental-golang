@@ -45,6 +45,7 @@ func NewRESTfulStudentCardPhotoUploadEndpoint() (path string, handler pkg.Endpoi
 
 				return
 			}
+
 			studentCardRepository, err := card.NewStudentCardRepository()
 			if err != nil {
 				wr.WriteHeader(http.StatusInternalServerError)
@@ -56,7 +57,7 @@ func NewRESTfulStudentCardPhotoUploadEndpoint() (path string, handler pkg.Endpoi
 			if err = studentCardRepository.SaveSingleFile(
 				"myidhere",
 				"jpg",
-				[]byte(imgBuffer.String()),
+				imgBuffer.Bytes(),
 			); err != nil {
 				wr.WriteHeader(http.StatusInternalServerError)
 				log.Println(err.Error())
