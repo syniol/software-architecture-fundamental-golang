@@ -1,7 +1,6 @@
 package card
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 
@@ -25,7 +24,7 @@ type StudentRepository struct {
 }
 
 func NewStudentCardRepository() (StudentRepositoryManager, error) {
-	dbClient, err := database.NewDatabase(context.Background())
+	dbClient, err := database.NewDatabase()
 	if err != nil {
 		return nil, err
 	}
@@ -52,7 +51,6 @@ func (sr *StudentRepository) CreateOne(card *Card) error {
 	}
 
 	sqlStmt := fmt.Sprintf(`INSERT INTO student.card (data) VALUES ('%s')`, string(cardJSON))
-
 	_, err = sr.dbClient.Exec(sqlStmt)
 	if err != nil {
 		return err
@@ -61,8 +59,7 @@ func (sr *StudentRepository) CreateOne(card *Card) error {
 	return nil
 }
 
+// findStudentCardWithNameAndID is an example of additional custom repository methods specific to each domain
 func (sr *StudentRepository) findStudentCardWithNameAndID(name, studentID string) (*Card, error) {
-	// example of additional custom repository methods specific to each domain
-
 	return nil, nil
 }

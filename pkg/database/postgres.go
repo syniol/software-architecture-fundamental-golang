@@ -16,7 +16,7 @@ var postgresInstance *Database
 
 const maximumConnections = 1
 
-func newPostgresDatabase(ctx context.Context) (*Database, error) {
+func newPostgresDatabase() (*Database, error) {
 	if postgresInstance != nil {
 		return postgresInstance, nil
 	}
@@ -41,8 +41,8 @@ func newPostgresDatabase(ctx context.Context) (*Database, error) {
 		cnn.SetMaxOpenConns(maximumConnections)
 
 		postgresInstance = &Database{
-			Ctx: ctx,
-			DB:  cnn,
+			Ctx: context.Background(),
+			db:  cnn,
 		}
 	})
 	if dbError != nil {
