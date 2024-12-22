@@ -2,11 +2,11 @@ package card
 
 import (
 	"bytes"
-	"github.com/syniol/software-architecture-fundamental-golang/pkg/restful"
 	"log"
 	"net/http"
 
 	"github.com/syniol/software-architecture-fundamental-golang/internal/student/card"
+	"github.com/syniol/software-architecture-fundamental-golang/pkg/restful"
 )
 
 func NewRESTfulCreateStudentCardEndpoint() (path string, handler restful.EndpointHandler) {
@@ -15,7 +15,7 @@ func NewRESTfulCreateStudentCardEndpoint() (path string, handler restful.Endpoin
 			studentRepository, err := card.NewStudentCardRepository()
 			if err != nil {
 				wr.WriteHeader(http.StatusInternalServerError)
-				wr.Write([]byte(`{ "error": "error establishing a connection to database" }`))
+				_, _ = wr.Write([]byte(`{ "error": "error establishing a connection to database" }`))
 
 				return
 			}
@@ -32,7 +32,7 @@ func NewRESTfulStudentCardPhotoUploadEndpoint() (path string, handler restful.En
 			var imgBuffer bytes.Buffer
 			if _, err := imgBuffer.ReadFrom(rq.Body); err != nil {
 				wr.WriteHeader(http.StatusBadRequest)
-				wr.Write([]byte(`{ "message": "There is an issue with submitted photograph, please contact the administrator" }`))
+				_, _ = wr.Write([]byte(`{ "message": "There is an issue with submitted photograph, please contact the administrator" }`))
 
 				log.Println(err.Error())
 
@@ -66,7 +66,7 @@ func NewRESTfulStudentCardPhotoUploadEndpoint() (path string, handler restful.En
 			}
 
 			wr.WriteHeader(http.StatusAccepted)
-			wr.Write([]byte(`{ "message": "Photo is uploaded successfully" }`))
+			_, _ = wr.Write([]byte(`{ "message": "Photo is uploaded successfully" }`))
 		},
 		http.MethodPut,
 	)

@@ -1,8 +1,9 @@
 package restful
 
 import (
-	"github.com/syniol/software-architecture-fundamental-golang/pkg/restful"
 	"net/http"
+
+	"github.com/syniol/software-architecture-fundamental-golang/pkg/restful"
 )
 
 func NewRESTfulHealthEndpoint() (path string, handler restful.EndpointHandler) {

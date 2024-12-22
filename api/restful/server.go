@@ -1,10 +1,10 @@
 package restful
 
 import (
-	"github.com/syniol/software-architecture-fundamental-golang/pkg/restful"
 	"net/http"
 
 	"github.com/syniol/software-architecture-fundamental-golang/api/restful/student/card"
+	"github.com/syniol/software-architecture-fundamental-golang/pkg/restful"
 )
 
 func NewRESTfulServer() http.Handler {
