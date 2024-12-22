@@ -8,34 +8,34 @@ import (
 	"github.com/syniol/software-architecture-fundamental-golang/pkg/storage"
 )
 
-// StudentRepositoryManager is an example of multiple inheritance in Go
-type StudentRepositoryManager interface {
+// StudentCardRepositoryManager is an example of multiple inheritance in Go
+type StudentCardRepositoryManager interface {
 	database.RepositoryManager[Card]
 	storage.RepositoryManager
 
 	// Add any custom method here and create an implementation on:
-	// func (sr *StudentRepository) YourCustomFunc(param any): any
+	// func (sr *StudentCardRepository) YourCustomFunc(param any): any
 	findStudentCardWithNameAndID(name, studentID string) (*Card, error)
 }
 
-type StudentRepository struct {
+type StudentCardRepository struct {
 	storageClient storage.Manager
 	dbClient      *database.Database
 }
 
-func NewStudentCardRepository() (StudentRepositoryManager, error) {
+func NewStudentCardRepository() (StudentCardRepositoryManager, error) {
 	dbClient, err := database.NewDatabase()
 	if err != nil {
 		return nil, err
 	}
 
-	return &StudentRepository{
+	return &StudentCardRepository{
 		dbClient:      dbClient,
 		storageClient: storage.NewStorage(),
 	}, nil
 }
 
-func (sr *StudentRepository) SaveSingleFile(studentID, extension string, content []byte) error {
+func (sr *StudentCardRepository) SaveSingleFile(studentID, extension string, content []byte) error {
 	err := sr.storageClient.SaveFile(fmt.Sprintf("%s.%s", studentID, extension), content)
 	if err != nil {
 		return err
@@ -44,7 +44,7 @@ func (sr *StudentRepository) SaveSingleFile(studentID, extension string, content
 	return nil
 }
 
-func (sr *StudentRepository) CreateOne(card *Card) error {
+func (sr *StudentCardRepository) CreateOne(card *Card) error {
 	cardJSON, err := json.Marshal(card)
 	if err != nil {
 		return err
@@ -60,6 +60,6 @@ func (sr *StudentRepository) CreateOne(card *Card) error {
 }
 
 // findStudentCardWithNameAndID is an example of additional custom repository methods specific to each domain
-func (sr *StudentRepository) findStudentCardWithNameAndID(name, studentID string) (*Card, error) {
+func (sr *StudentCardRepository) findStudentCardWithNameAndID(name, studentID string) (*Card, error) {
 	return nil, nil
 }

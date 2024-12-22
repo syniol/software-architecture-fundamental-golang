@@ -2,15 +2,15 @@ package card
 
 import (
 	"bytes"
+	"github.com/syniol/software-architecture-fundamental-golang/pkg/restful"
 	"log"
 	"net/http"
 
 	"github.com/syniol/software-architecture-fundamental-golang/internal/student/card"
-	"github.com/syniol/software-architecture-fundamental-golang/pkg"
 )
 
-func NewRESTfulCreateStudentCardEndpoint() (path string, handler pkg.EndpointHandler) {
-	return "/v1/student/card", pkg.NewRESTfulEndpointAuthenticatedHandler(
+func NewRESTfulCreateStudentCardEndpoint() (path string, handler restful.EndpointHandler) {
+	return "/v1/student/card", restful.NewRESTfulEndpointAuthenticatedHandler(
 		func(wr http.ResponseWriter, rq *http.Request) {
 			studentRepository, err := card.NewStudentCardRepository()
 			if err != nil {
@@ -26,8 +26,8 @@ func NewRESTfulCreateStudentCardEndpoint() (path string, handler pkg.EndpointHan
 	)
 }
 
-func NewRESTfulStudentCardPhotoUploadEndpoint() (path string, handler pkg.EndpointHandler) {
-	return "/v1/student/card/photo", pkg.NewRESTfulEndpointAuthenticatedHandler(
+func NewRESTfulStudentCardPhotoUploadEndpoint() (path string, handler restful.EndpointHandler) {
+	return "/v1/student/card/photo", restful.NewRESTfulEndpointAuthenticatedHandler(
 		func(wr http.ResponseWriter, rq *http.Request) {
 			var imgBuffer bytes.Buffer
 			if _, err := imgBuffer.ReadFrom(rq.Body); err != nil {
